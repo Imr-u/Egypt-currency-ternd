@@ -19,10 +19,17 @@ Headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 # Note 
 # The cbe displays the rate after 2 days so if the scrape date is 5 the data is for day 3
 page = requests.get(URL , headers = Headers)
+page.encoding = "utf-8"
 soup = BeautifulSoup(page.content, "html.parser")
 scrape_time = datetime.date.today().isoformat()
 
+print("Status code:", page.status_code)
+print("Response length:", len(page.text))
+print("First 300 chars of response:\n", page.text[:300])
+
 table = soup.find("table", class_= "table-comp layout-auto")
+if not table:
+    raise RuntimeError("❌ Table not found — check if request blocked or HTML structure changed")
 
 rows = []
 
