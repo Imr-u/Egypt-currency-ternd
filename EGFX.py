@@ -23,7 +23,6 @@ soup = BeautifulSoup(page.content, "html.parser")
 scrape_time = datetime.date.today().isoformat()
 
 table = soup.find("table", class_= "table-comp layout-auto")
-cells = table.find_all("tr", class_="content-height")
 
 rows = []
 
@@ -34,9 +33,6 @@ for tr in table.select("tbody tr"):
         rows.append(cells)
 for r in rows:
     r.append(scrape_time)
-print(rows)
-
-
 
 
 # In[25]:
